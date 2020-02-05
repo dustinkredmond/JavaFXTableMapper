@@ -1,4 +1,4 @@
-package com.dustinredmond;
+package com.jfxdev;
 /*
  *  Copyright (C) 2020 Dustin K. Redmond
  *
@@ -64,7 +64,7 @@ public class MappingTest extends Application {
         ObservableList<TestObj> objs = FXCollections.observableArrayList();
         for (int i = 0; i < amount; i++) {
             long c = COUNTER.incrementAndGet();
-            objs.add(new TestObj((int) c, c+"SomeData", c+"SomeOtherData",c+"EvenMore"));
+            objs.add(new TestObj((int) c, c+"SomeData", c+"SomeOtherData",c+"EvenMoreData"));
         }
         return objs;
     }

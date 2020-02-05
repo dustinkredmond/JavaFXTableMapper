@@ -1,4 +1,4 @@
-package com.dustinredmond;
+package com.jfxdev;
 /*
  *  Copyright (C) 2020 Dustin K. Redmond
  *

@@ -1,4 +1,4 @@
-package com.dustinredmond;
+package com.jfxdev;
 /*
  *  Copyright (C) 2020 Dustin K. Redmond
  *
@@ -38,11 +38,13 @@ public class ObjectTableView<T> extends TableView<T> {
      * type passed as parameter. Sets the objects as table rows with the column names
      * defaulting to the field names of the passed class.
      * @param objects {@code ObservableList} of the objects to be used in the {@code TableView}
+     * @throws UnsupportedOperationException If no objects are passed.
+     * Use {@code new ObjectTableView(Class clazz)} instead.
      */
-    public ObjectTableView(ObservableList<T> objects) {
+    public ObjectTableView(ObservableList<T> objects) throws UnsupportedOperationException {
         if (objects == null || objects.size() == 0) {
             throw new UnsupportedOperationException("The object list supplied when instantiating " +
-                    "com.dustinredmond.ObjectTableView must not be null or size zero. Other constructors support this.");
+                    "com.jfxdev.ObjectTableView must not be null or size zero. Other constructors support this.");
         }
         new ArrayList<>(Arrays.asList(objects.get(0).getClass().getDeclaredFields())).forEach(field -> {
             String fieldName = field.getName();
