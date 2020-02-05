@@ -25,12 +25,9 @@ package com.dustinredmond;
 public class TestObj {
 
     private int id;
-    @ColumnName(value = "First Name")
     private String name;
     private String city;
     private String country;
-
-    public TestObj() { super(); }
 
     public TestObj(int id, String name, String city, String country) {
         this.id = id;
