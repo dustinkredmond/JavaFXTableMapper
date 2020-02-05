@@ -1,7 +1,7 @@
 # JavaFXTableMapper
 Simply use `ObjectTableView` in place of JavaFX's `TableView` and all of the work is handled for you.
 
-##Example:
+## Example:
 
 Model class:
 ```java
