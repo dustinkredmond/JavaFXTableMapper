@@ -22,26 +22,48 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * Simple test/proof of concept for the {@code ObjectTableView}
  * @author Dustin K. Redmond
  * @since 02/04/2020 15:29
  */
+@SuppressWarnings("unused")
 public class MappingTest extends Application {
 
     @Override
+    @SuppressWarnings("RedundantThrows")
     public void start(Stage stage) throws Exception {
-        ObjectTableView<TestObj> table = new ObjectTableView<>(this.generateTestObject(1000));
-        stage.setScene(new Scene(table));
+
+        ObjectTableView<TestObj> table = new ObjectTableView<>(generateTestObject(5));
+        HashMap<String,String> columnNames = new HashMap<>();
+        columnNames.put("id", "T1_ID");
+        columnNames.put("name", "NAME");
+        table.applyColumnNameMapping(columnNames);
+
+        ObjectTableView<TestObj> table2 = new ObjectTableView<>(TestObj.class);
+        table2.setItems(generateTestObject(10));
+        table2.renameColumn("id", "T2_ID");
+
+        stage.setScene(new Scene(new HBox(table, table2)));
+        stage.setTitle("ObjectTableView: Testing");
         stage.show();
     }
 
-    private ObservableList<TestObj> generateTestObject(int limit) {
+    /**
+     * Returns {@code ObservableList} of dummy instances of {@code TestObj} (simple POJO class)
+     * @param amount Amount of objects the list should return.
+     * @return {@code ObservableList} of {@code TestObj} with data.
+     */
+    private ObservableList<TestObj> generateTestObject(int amount) {
         ObservableList<TestObj> objs = FXCollections.observableArrayList();
-        long c = COUNTER.incrementAndGet();
-        for (int i = 0; i < limit; i++) {
+        for (int i = 0; i < amount; i++) {
+            long c = COUNTER.incrementAndGet();
             objs.add(new TestObj((int) c, c+"SomeData", c+"SomeOtherData",c+"EvenMore"));
         }
         return objs;

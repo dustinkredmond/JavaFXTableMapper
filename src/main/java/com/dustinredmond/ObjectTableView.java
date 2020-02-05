@@ -18,44 +18,81 @@ package com.dustinredmond;
  *
  */
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * @author Dustin K. Redmond
  * @since 02/04/2020 15:39
  */
 public class ObjectTableView<T> extends TableView<T> {
+
+    /**
+     * Constructs an {@code ObjectTableView} suitable for displaying objects of the
+     * type passed as parameter. Sets the objects as table rows with the column names
+     * defaulting to the field names of the passed class.
+     * @param objects {@code ObservableList} of the objects to be used in the {@code TableView}
+     */
     public ObjectTableView(ObservableList<T> objects) {
         if (objects == null || objects.size() == 0) {
-            throw new UnsupportedOperationException("The object supplied when instantiating " +
-                    "com.dustinredmond.ObjectTableView must not be null or size zero.");
+            throw new UnsupportedOperationException("The object list supplied when instantiating " +
+                    "com.dustinredmond.ObjectTableView must not be null or size zero. Other constructors support this.");
         }
-
-        List<Field> fields = new ArrayList<>(
-                Arrays.asList(objects.get(0).getClass().getDeclaredFields())
-        );
-
-        fields.forEach(field -> {
-            ColumnName annotName = field.getAnnotation(ColumnName.class);
+        new ArrayList<>(Arrays.asList(objects.get(0).getClass().getDeclaredFields())).forEach(field -> {
             String fieldName = field.getName();
-            TableColumn<T, ?> column = new TableColumn<>(
-                    (annotName != null && !annotName.value().isEmpty()) ? annotName.value(): fieldName
-            );
+            TableColumn<T, ?> column = new TableColumn<>(fieldName);
             column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
             this.getColumns().add(column);
         });
         this.setItems(objects);
     }
 
+    /**
+     * Constructs an {@code ObjectTableView} suitable for displaying objects of
+     * the specified model class.
+     * @param modelClass Class whose fields are to be used as {@code TableColumn}s
+     */
+    public ObjectTableView(Class<T> modelClass) {
+        new ArrayList<>(Arrays.asList(modelClass.getDeclaredFields())).forEach(field -> {
+            String fieldName = field.getName();
+            TableColumn<T, ?> column = new TableColumn<>(fieldName);
+            column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+            this.getColumns().add(column);
+        });
+    }
 
-    private static final String EMPTY_STRING = "";
+    /**
+     * Renames a single table column. {@code ObjectTableView().applyColumnNameMapping()}
+     * should be preferred for renaming multiple {@code TableColumn}s at once.
+     * @param name {@code TableColumn}'s current name
+     * @param newName {@code TableColumn}'s intended name
+     */
+    public void renameColumn(String name, String newName) {
+        for (TableColumn<T, ?> col: this.getColumns()) {
+            if (col.getText().equals(name)) {
+                col.setText(newName);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Applies column names from a {@code HashMap} where the key signifies the current
+     * column name and the value signifies the intended name.
+     * @param map {@code HashMap<String,String>} of structure: oldName/newName
+     */
+    public void applyColumnNameMapping(HashMap<String,String> map) {
+        if (map.isEmpty()) return;
+        for (TableColumn<T, ?> col: this.getColumns()) {
+            if (map.containsKey(col.getText())) {
+                col.setText(map.get(col.getText()));
+            }
+        }
+    }
 }
