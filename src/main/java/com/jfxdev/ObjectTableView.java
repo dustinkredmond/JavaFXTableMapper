@@ -90,7 +90,10 @@ public class ObjectTableView<T> extends TableView<T> {
      * @param map {@code HashMap<String,String>} of structure: oldName/newName
      */
     public void applyColumnNameMapping(HashMap<String,String> map) {
-        if (map.isEmpty()) return;
+        if (map == null) {
+					throw new UnsupportedOperationException("Unable to apply column mapping with map null");
+				}
+				if (map.isEmpty()) return;
         for (TableColumn<T, ?> col: this.getColumns()) {
             if (map.containsKey(col.getText())) {
                 col.setText(map.get(col.getText()));
