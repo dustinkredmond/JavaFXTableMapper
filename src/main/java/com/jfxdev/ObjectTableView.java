@@ -34,6 +34,20 @@ import java.util.HashMap;
 public class ObjectTableView<T> extends TableView<T> {
 
     /**
+     * Constructs an {@code ObjectTableView} suitable for displaying objects of
+     * the specified model class.
+     * @param modelClass Class whose fields are to be used as {@code TableColumn}s
+     */
+    public ObjectTableView(Class<T> modelClass) {
+        new ArrayList<>(Arrays.asList(modelClass.getDeclaredFields())).forEach(field -> {
+            String fieldName = field.getName();
+            TableColumn<T, ?> column = new TableColumn<>(fieldName);
+            column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+            this.getColumns().add(column);
+        });
+    }
+
+    /**
      * Constructs an {@code ObjectTableView} suitable for displaying objects of the
      * type passed as parameter. Sets the objects as table rows with the column names
      * defaulting to the field names of the passed class.
@@ -53,20 +67,6 @@ public class ObjectTableView<T> extends TableView<T> {
             this.getColumns().add(column);
         });
         this.setItems(objects);
-    }
-
-    /**
-     * Constructs an {@code ObjectTableView} suitable for displaying objects of
-     * the specified model class.
-     * @param modelClass Class whose fields are to be used as {@code TableColumn}s
-     */
-    public ObjectTableView(Class<T> modelClass) {
-        new ArrayList<>(Arrays.asList(modelClass.getDeclaredFields())).forEach(field -> {
-            String fieldName = field.getName();
-            TableColumn<T, ?> column = new TableColumn<>(fieldName);
-            column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
-            this.getColumns().add(column);
-        });
     }
 
     /**
