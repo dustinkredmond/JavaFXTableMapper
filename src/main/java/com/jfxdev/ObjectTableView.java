@@ -91,7 +91,7 @@ public class ObjectTableView<T> extends TableView<T> {
      */
     public void applyColumnNameMapping(HashMap<String,String> map) {
         if (map == null) {
-					throw new UnsupportedOperationException("Unable to apply column mapping with map null");
+					throw new UnsupportedOperationException("Unable to apply column mapping with null map");
 				}
 				if (map.isEmpty()) return;
         for (TableColumn<T, ?> col: this.getColumns()) {
