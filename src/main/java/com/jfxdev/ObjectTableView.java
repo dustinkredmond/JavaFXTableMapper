@@ -71,7 +71,9 @@ public class ObjectTableView<T> extends TableView<T> {
 
     /**
      * Renames a single table column. {@code ObjectTableView().applyColumnNameMapping()}
-     * should be preferred for renaming multiple {@code TableColumn}s at once.
+     * should be preferred for renaming multiple {@code TableColumn}s at once,
+     * as renaming a single column requires searching through all columns in order
+     * to perform the rename operation.
      * @param name {@code TableColumn}'s current name
      * @param newName {@code TableColumn}'s intended name
      */
@@ -86,7 +88,9 @@ public class ObjectTableView<T> extends TableView<T> {
 
     /**
      * Applies column names from a {@code HashMap} where the key signifies the current
-     * column name and the value signifies the intended name.
+     * column name and the value signifies the intended name. This should be preferred
+     * when renaming multiple columns, as the operation is faster than 
+     * {@code renameColumn(String name, String name)}.
      * @param map {@code HashMap<String,String>} of structure: oldName/newName
      */
     public void applyColumnNameMapping(HashMap<String,String> map) {
