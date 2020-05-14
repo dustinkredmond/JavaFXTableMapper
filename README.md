@@ -29,13 +29,13 @@ ObjectTableView<Test> table = new ObjectTableView<>(myObjects);
 // use below constructor if we don't have our data yet, but still want the TableView
 // ObjectTableView<Test> table = new ObjectTableView<>(Test.class); 
     
-// Name our columns in bulk
+// Name multiple columns via Map
 HashMap<String,String> columnNames = new HashMap<>();
 columnNames.put("id", "T1_ID");
 columnNames.put("name", "NAME");
 table.applyColumnNameMapping(columnNames);
 
-// or name them one at a time
+// or name them one at a time (a bit slower)
 table.renameColumn("city", "City");
 ```
 
