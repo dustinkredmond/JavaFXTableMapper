@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Simple test/proof of concept for the {@code ObjectTableView}
+ * Run it as a JavaFX application to see the ObjectTableView in action.
  * @author Dustin K. Redmond
  * @since 02/04/2020 15:29
  */
