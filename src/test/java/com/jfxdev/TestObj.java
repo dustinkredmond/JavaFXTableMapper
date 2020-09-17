@@ -28,12 +28,14 @@ public class TestObj {
     private String name;
     private String city;
     private String country;
+    private boolean active;
 
     public TestObj(int id, String name, String city, String country) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.country = country;
+        this.active = Math.random() >= 0.5;
     }
 
     public int getId() {
@@ -67,4 +69,8 @@ public class TestObj {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public boolean isActive() { return this.active; }
+
+    public void setActive(boolean active) { this.active = active; }
 }
