@@ -18,6 +18,8 @@ package com.jfxdev;
  *
  */
 
+import java.util.Date;
+
 /**
  * @author Dustin K. Redmond
  * @since 02/04/2020 15:29
@@ -29,6 +31,7 @@ public class TestObj {
     private String city;
     private String country;
     private boolean active;
+    private Date created;
 
     public TestObj(int id, String name, String city, String country) {
         this.id = id;
@@ -36,6 +39,7 @@ public class TestObj {
         this.city = city;
         this.country = country;
         this.active = Math.random() >= 0.5;
+        this.created = new Date();
     }
 
     public int getId() {
@@ -73,4 +77,8 @@ public class TestObj {
     public boolean isActive() { return this.active; }
 
     public void setActive(boolean active) { this.active = active; }
+
+    public Date getCreated() { return created; }
+
+    public void setCreated(Date created) { this.created = created; }
 }
