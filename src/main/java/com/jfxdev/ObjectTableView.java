@@ -40,9 +40,17 @@ public class ObjectTableView<T> extends TableView<T> {
      */
     public ObjectTableView(Class<T> modelClass) {
         new ArrayList<>(Arrays.asList(modelClass.getDeclaredFields())).forEach(field -> {
-            String fieldName = field.getName();
+            if (field.getAnnotation(HiddenField.class) != null) {
+                return;
+            }
+            String fieldName;
+            if (field.getAnnotation(ColumnName.class) != null) {
+                fieldName = field.getAnnotation(ColumnName.class).name();
+            } else {
+                fieldName = field.getName();
+            }
             TableColumn<T, ?> column = new TableColumn<>(fieldName);
-            column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+            column.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
             this.getColumns().add(column);
         });
     }
@@ -61,9 +69,17 @@ public class ObjectTableView<T> extends TableView<T> {
                     "com.jfxdev.ObjectTableView must not be null or size zero. Other constructors support this.");
         }
         new ArrayList<>(Arrays.asList(objects.get(0).getClass().getDeclaredFields())).forEach(field -> {
-            String fieldName = field.getName();
+            if (field.getAnnotation(HiddenField.class) != null) {
+                return;
+            }
+            String fieldName;
+            if (field.getAnnotation(ColumnName.class) != null) {
+                fieldName = field.getAnnotation(ColumnName.class).name();
+            } else {
+                fieldName = field.getName();
+            }
             TableColumn<T, ?> column = new TableColumn<>(fieldName);
-            column.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+            column.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
             this.getColumns().add(column);
         });
         this.setItems(objects);
