@@ -30,8 +30,11 @@ public class TestObj {
     private String name;
     private String city;
     private String country;
+    @ColumnName(name = "Is Active?")
     private boolean active;
     private Date created;
+    @HiddenField
+    private Date internalDate;
 
     public TestObj(int id, String name, String city, String country) {
         this.id = id;
@@ -40,6 +43,7 @@ public class TestObj {
         this.country = country;
         this.active = Math.random() >= 0.5;
         this.created = new Date();
+        this.internalDate = new Date();
     }
 
     public int getId() {
@@ -81,4 +85,12 @@ public class TestObj {
     public Date getCreated() { return created; }
 
     public void setCreated(Date created) { this.created = created; }
+
+    public Date getInternalDate() {
+        return internalDate;
+    }
+
+    public void setInternalDate(Date internalDate) {
+        this.internalDate = internalDate;
+    }
 }
