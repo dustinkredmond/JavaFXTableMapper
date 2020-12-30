@@ -12,6 +12,10 @@ public class Test {
   private String city;
   private String country;
   
+  // annotate with HiddenField to skip rendering in TableView
+  @HiddenField
+  private String internalId;
+  
   // getters/setters/constructor here
   // a findAll() method implementation
 }
