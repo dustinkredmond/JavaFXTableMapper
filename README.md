@@ -16,6 +16,10 @@ public class Test {
   @HiddenField
   private String internalId;
   
+  // annotate with ColumnName to provide custom name for the TableView
+  @ColumnName(name = "Pretty Column Name")
+  private String someThingLongAndUnintuitive;
+  
   // getters/setters/constructor here
   // a findAll() method implementation
 }
