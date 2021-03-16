@@ -49,6 +49,7 @@ table.renameColumn("city", "City");
 
 
 If we add the above `ObjectTableView` to a scene, we should end up with the following:
+
 ![table](img/table1.png) 
 
 That's all folks, everything is handled in the `com.jfxdev.ObjectTableView` class. Feel free 
